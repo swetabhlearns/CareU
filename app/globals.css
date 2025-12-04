@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    /* Theme: Teal & Orange (Reference Image) */
+    --background: 210 40% 98%;
+    /* Very soft blue-white */
+    --foreground: 180 30% 20%;
+    /* Dark Teal-Gray */
+
+    --card: 0 0% 100%;
+    --card-foreground: 180 30% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 30% 20%;
+
+    --primary: 175 65% 25%;
+    /* Deep Teal */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 96%;
+    /* Light Gray-Blue */
+    --secondary-foreground: 175 65% 25%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 200 10% 50%;
+
+    --accent: 25 95% 50%;
+    /* Vibrant Orange */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 175 65% 25%;
+
+    --radius: 0.75rem;
+
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
+}
+
+.dark {
+    --background: 180 30% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 180 30% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 180 30% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 175 50% 45%;
+    --primary-foreground: 180 30% 5%;
+
+    --secondary: 180 20% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 180 20% 15%;
+    --muted-foreground: 200 10% 60%;
+
+    --accent: 25 95% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 180 20% 15%;
+    --input: 180 20% 15%;
+    --ring: 175 50% 45%;
+}
+
+@theme {
+    --color-background: #050505;
+    /* Void Black */
+    --color-foreground: #FFFFFF;
+    /* Stark White */
+
+    --color-primary: #CCFF00;
+    /* Hyper Lime */
+    --color-primary-foreground: #000000;
+
+    --color-secondary: #1A1A1A;
+    /* Dark Gray */
+    --color-secondary-foreground: #FFFFFF;
+
+    --color-accent: #CCFF00;
+    /* Hyper Lime */
+    --color-accent-foreground: #000000;
+
+    --color-destructive: #FF3333;
+    --color-destructive-foreground: #FFFFFF;
+
+    --color-muted: #1A1A1A;
+    --color-muted-foreground: #888888;
+
+    --color-border: #333333;
+    --color-input: #1A1A1A;
+    --color-ring: #CCFF00;
+
+    --radius-lg: 1.5rem;
+    /* Super rounded / Organic */
+    --radius-md: 1rem;
+    --radius-sm: 0.5rem;
+
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
+
+    --animate-blob: blob 10s infinite;
+    --animate-reveal: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    --animate-stagger-1: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    --animate-stagger-2: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    --animate-stagger-3: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+            filter: blur(40px);
+        }
+
+        33% {
+            transform: translate(30px, -50px) scale(1.2);
+            filter: blur(60px);
+        }
+
+        66% {
+            transform: translate(-20px, 20px) scale(0.8);
+            filter: blur(40px);
+        }
+
+        100% {
+            transform: translate(0px, 0px) scale(1);
+            filter: blur(40px);
+        }
+    }
+
+    @keyframes reveal {
+        from {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* Noise Texture - Fine Digital Grain */
+    --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground font-body antialiased;
+        background-image: var(--noise);
+    }
+
+    button {
+        @apply cursor-pointer;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading font-extrabold tracking-tight text-foreground;
+    }
+
+    /* Extreme Neo-Sleek Scale */
+    h1 {
+        @apply text-6xl md:text-8xl lg:text-9xl font-extrabold leading-[0.85];
+        letter-spacing: -0.04em;
+    }
+
+    h2 {
+        @apply text-4xl md:text-6xl font-bold leading-none;
+        letter-spacing: -0.03em;
+    }
+
+    h3 {
+        @apply text-2xl md:text-4xl font-bold;
+        letter-spacing: -0.02em;
+    }
+
+    /* Clean Geometric Body */
+    p {
+        @apply font-body font-light text-lg leading-relaxed text-muted-foreground;
+    }
+
+    .font-heading {
+        font-family: var(--font-heading);
+    }
+
+    .font-body {
+        font-family: var(--font-body);
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    /* Neo-Sleek Utilities */
+    .neon-glow {
+        box-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+    }
+
+    .glass-panel {
+        @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-2xl;
+    }
+}
