@@ -16,7 +16,7 @@ export const serverWallet = PRIVATE_KEY
     ? new ethers.Wallet(PRIVATE_KEY, provider)
     : null;
 
-const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS;
+const ESCROW_ADDRESS = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS || process.env.ESCROW_CONTRACT_ADDRESS;
 
 const ESCROW_ABI = [
     "function createBooking(uint256 bookingId, address provider) external payable",
@@ -27,7 +27,13 @@ const ESCROW_ABI = [
 
 export const getEscrowContract = () => {
     if (!serverWallet) throw new Error("Server Wallet not initialized");
-    if (!ESCROW_ADDRESS) throw new Error("Escrow Contract Address not set");
+
+    if (!ESCROW_ADDRESS) {
+        console.error("DEBUG: Environment Variables Keys:", Object.keys(process.env));
+        console.error("DEBUG: ESCROW_ADDRESS is missing. Checked NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS and ESCROW_CONTRACT_ADDRESS");
+        throw new Error("Escrow Contract Address not set");
+    }
+
     return new ethers.Contract(ESCROW_ADDRESS, ESCROW_ABI, serverWallet);
 };
 

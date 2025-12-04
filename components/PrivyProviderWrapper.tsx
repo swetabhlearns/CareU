@@ -1,5 +1,6 @@
 'use client';
 
+
 import { PrivyProvider } from '@privy-io/react-auth';
 
 export default function PrivyProviderWrapper({
@@ -10,7 +11,7 @@ export default function PrivyProviderWrapper({
   return (
     <>
       <PrivyProvider
-        appId="cmir868ry00ajl80cawmk3w55"
+        appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
         config={{
           loginMethods: ['email', 'wallet', 'google', 'twitter', 'discord', 'github'],
           appearance: {
